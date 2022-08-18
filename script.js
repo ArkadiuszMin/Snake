@@ -84,7 +84,7 @@ let draw = (canvas) => {
             dlugosc+=1
             ctx.fillStyle = "black"
         }
-        for(let i=1; i<dlugosc; i++){
+        for(let i=1; i<dlugosc-1; i++){
             if(gora==cordY[i] && lewo==cordX[i] && dlugosc>2){
                 alert("Game Over")
                 clearInterval(licznik)
