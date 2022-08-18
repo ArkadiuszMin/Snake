@@ -18,6 +18,7 @@ let draw = (canvas) => {
     cordX[0] = 100
     cordY[0] = 60
     let previous
+    let flaga
     
 
 
@@ -60,7 +61,20 @@ let draw = (canvas) => {
 
         //------ Zjadanie -------
 
-        if(lewo == spawnX && gora == spawnY){
+        if(lewo == spawnX && gora == spawnY){ 
+            // ---- wybieranie cordow ----
+            flaga = true
+            while(flaga){
+                flaga = false
+                spawnX = Math.ceil(Math.random()*24)*20
+                spawnY = Math.ceil(Math.random()*24)*20
+                for(let i=0; i<dlugosc; i++){
+                    if(spawnX==cordX[i] || spawnY==cordY[i]){
+                        flaga=true
+                    }
+                }
+            }
+
             spawnX = Math.ceil(Math.random()*24)*20
             spawnY = Math.ceil(Math.random()*24)*20
             ctx.fillStyle = "red"
@@ -83,41 +97,53 @@ let draw = (canvas) => {
         }
     }, 50)
 
-    document.onkeydown = (key) => {
-        console.log(key);
+    document.onkeydown = (key) => { 
         switch (key.key) {
             case "ArrowRight":
                 if(previous!="ArrowLeft"){
                     x = 20
-                    y = 0  
+                    y = 0
+                    previous = key.key  
                 }
                 break;
             case "ArrowLeft":
                 if(previous!="ArrowRight"){
                     x = -20
-                    y = 0  
+                    y = 0
+                    previous = key.key  
                 }
                 break;
             case "ArrowUp":
                 if(previous!="ArrowDown"){
                     x = 0
-                    y = -20  
+                    y = -20
+                    previous = key.key  
                 }
                 break;
             case "ArrowDown":
                 if(previous!="ArrowUp"){
                     x = 0
-                    y = 20  
+                    y = 20
+                    previous = key.key  
                 }
                 break;
-                
+            case "r":
+                ctx.fillStyle = "white"
+                ctx.fillRect(0, 0, 500, 500)
+                draw(canvas)
         
             default:
                 break;
         }
-        previous = key.key
+        
     }
 
 }
 
-draw(canvas)
+document.onkeydown = (key) => {
+    console.log(key.key)
+    if(key.key=="r"){
+        console.log("dupa")
+        draw(canvas)
+    }
+}
