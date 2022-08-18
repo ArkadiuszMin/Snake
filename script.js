@@ -17,7 +17,7 @@ let draw = (canvas) => {
     let dlugosc = 2
     cordX[0] = 100
     cordY[0] = 60
-
+    let previous
     
 
 
@@ -70,6 +70,12 @@ let draw = (canvas) => {
             dlugosc+=1
             ctx.fillStyle = "black"
         }
+        for(let i=1; i<dlugosc; i++){
+            if(gora==cordY[i] && lewo==cordX[i] && dlugosc>2){
+                alert("Game Over")
+                clearInterval(licznik)
+            }
+        }
 
         if(gora==-20 || gora==500 || lewo==-20 || lewo==500){
             alert("Game Over")
@@ -81,26 +87,35 @@ let draw = (canvas) => {
         console.log(key);
         switch (key.key) {
             case "ArrowRight":
-                x = 20
-                y = 0
+                if(previous!="ArrowLeft"){
+                    x = 20
+                    y = 0  
+                }
                 break;
             case "ArrowLeft":
-                x = -20
-                y = 0
+                if(previous!="ArrowRight"){
+                    x = -20
+                    y = 0  
+                }
                 break;
             case "ArrowUp":
-                x = 0
-                y = -20
+                if(previous!="ArrowDown"){
+                    x = 0
+                    y = -20  
+                }
                 break;
             case "ArrowDown":
-                x = 0
-                y = 20
+                if(previous!="ArrowUp"){
+                    x = 0
+                    y = 20  
+                }
                 break;
                 
         
             default:
                 break;
         }
+        previous = key.key
     }
 
 }
